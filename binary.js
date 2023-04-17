@@ -19,7 +19,7 @@ module.exports = function()
         ? package.version.replace(/^\d+\.\d+\.\d+-(.*)$/, '$2')
         // turn '1.2.3-alpha' into '1.2.3'
         : package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1');
-	var subPackageName = 'roc-on-' + process.platform + '_' + process.arch;
+	var subPackageName = '@roc-installer-assets/' + process.platform + '_' + process.arch;
 
 	verifyPlatform(version, subPackageName);
 
@@ -54,6 +54,11 @@ module.exports = function()
 	// figure out where to put the binary
 	var binaryPath = path.resolve(__dirname, package.bin.roc);
 	var tmpPath = binaryPath + '.tmp';
+
+	// Make sure we don't have a garbage temporary file from an incomplete previous run.
+	if (fs.existsSync(tmpPath)) {
+		fs.unlinkSync(tmpPath);
+	}
 
 	// optimize by replacing the JS bin/roc with the native binary directly
 	try
