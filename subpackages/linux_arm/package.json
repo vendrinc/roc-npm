@@ -1,0 +1,10 @@
+{
+  "name": "@roc-installer-assets/linux_arm64",
+  "version": "0.0.0-2023-04-17-nightly",
+  "description": "The Linux ARM 32-bit binary for Roc.",
+  "repository": "https://github.com/vendrinc/roc-npm",
+  "author": "Richard Feldman",
+  "license": "UPL-1.0",
+  "os": [ "linux" ],
+  "cpu": [ "arm" ]
+}
