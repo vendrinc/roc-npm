@@ -5,6 +5,7 @@
   "repository": "https://github.com/vendrinc/roc-npm",
   "author": "Richard Feldman",
   "license": "UPL-1.0",
-  "os": [ "linux" ],
-  "cpu": [ "x64" ]
+  "files": ["roc"],
+  "os": ["linux"],
+  "cpu": ["x64"]
 }
