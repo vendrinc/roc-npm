@@ -1,6 +1,6 @@
 {
   "name": "roc-lang",
-  "version": "1.0.0-2023-04-17-nightly",
+  "version": "0.0.0-2023-04-17-nightly",
   "description": "Download the Roc CLI binary to node_modules/.bin/roc",
   "license": "UPL-1.0",
   "repository": "https://github.com/vendrinc/roc-npm",
@@ -25,11 +25,11 @@
   ],
   "bin": { "roc": "bin/roc" },
   "optionalDependencies": {
-    "@roc-installer-assets/darwin_arm64": "1.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/darwin_x64": "1.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_arm": "1.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_arm64": "1.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_x64": "1.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/windows_x64": "1.0.0-2023-04-17-nightly"
+    "@roc-installer-assets/darwin_arm64": "0.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/darwin_x64": "0.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_arm": "0.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_arm64": "0.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_x64": "0.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/windows_x64": "0.0.0-2023-04-17-nightly"
   }
 }
