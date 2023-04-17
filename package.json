@@ -27,9 +27,6 @@
   "optionalDependencies": {
     "@roc-installer-assets/darwin_arm64": "0.0.0-2023-04-17-nightly",
     "@roc-installer-assets/darwin_x64": "0.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_arm": "0.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_arm64": "0.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/linux_x64": "0.0.0-2023-04-17-nightly",
-    "@roc-installer-assets/windows_x64": "0.0.0-2023-04-17-nightly"
+    "@roc-installer-assets/linux_x64": "0.0.0-2023-04-17-nightly"
   }
 }
