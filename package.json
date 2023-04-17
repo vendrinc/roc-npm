@@ -1,0 +1,36 @@
+{
+  "name": "roc-lang",
+  "version": "1.0.0-2023-04-17-nightly",
+  "description": "Download the Roc CLI binary to node_modules/.bin/roc",
+  "license": "UPL-1.0",
+  "repository": "https://github.com/vendrinc/roc-npm",
+  "author": "Richard Feldman",
+  "type": "commonjs",
+  "exports": {},
+  "scripts": {
+    "install": "node install.js"
+  },
+  "files": [
+    "install.js",
+    "binary.js",
+    "bin",
+    "bin/roc"
+  ],
+  "keywords": [
+    "bin",
+    "binary",
+    "binaries",
+    "roc",
+    "install",
+    "installer"
+  ],
+  "bin": { "roc": "bin/roc" },
+  "optionalDependencies": {
+    "roc-on-darwin-aarch64": "1.0.0-2023-04-17-nightly",
+    "roc-on-darwin-x86_64": "1.0.0-2023-04-17-nightly",
+    "roc-on-linux-arm": "1.0.0-2023-04-17-nightly",
+    "roc-on-linux-aarch64": "1.0.0-2023-04-17-nightly",
+    "roc-on-linux-x86_64": "1.0.0-2023-04-17-nightly",
+    "roc-on-windows-x86_64": "1.0.0-2023-04-17-nightly"
+  }
+}
