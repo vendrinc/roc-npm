@@ -25,11 +25,11 @@
   ],
   "bin": { "roc": "bin/roc" },
   "optionalDependencies": {
-    "roc-on-darwin-aarch64": "1.0.0-2023-04-17-nightly",
-    "roc-on-darwin-x86_64": "1.0.0-2023-04-17-nightly",
-    "roc-on-linux-arm": "1.0.0-2023-04-17-nightly",
-    "roc-on-linux-aarch64": "1.0.0-2023-04-17-nightly",
-    "roc-on-linux-x86_64": "1.0.0-2023-04-17-nightly",
-    "roc-on-windows-x86_64": "1.0.0-2023-04-17-nightly"
+    "@roc-installer-assets/darwin_arm64": "1.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/darwin_x64": "1.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_arm": "1.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_arm64": "1.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/linux_x64": "1.0.0-2023-04-17-nightly",
+    "@roc-installer-assets/windows_x64": "1.0.0-2023-04-17-nightly"
   }
 }
