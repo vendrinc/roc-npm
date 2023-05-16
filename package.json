@@ -8,10 +8,11 @@
   "type": "commonjs",
   "exports": {},
   "scripts": {
-    "install": "node -e 'require(\"./binary.js\")();'"
+    "install": "node install.js"
   },
   "files": [
     "binary.js",
+    "install.js",
     "bin",
     "bin/roc"
   ],
