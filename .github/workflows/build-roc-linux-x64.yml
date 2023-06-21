@@ -36,6 +36,8 @@ jobs:
       run: |
         docker run --mount type=bind,source="$(pwd)",target=/app docker-build-env bash -c "\
         cd /app && \
+        git clone --depth 1 https://github.com/roc-lang/roc.git && \
+        cd roc && \
         cargo build --locked --profile=release-with-lto --bin roc && \
         ./target/release/roc version"
 
