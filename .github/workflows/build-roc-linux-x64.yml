@@ -39,24 +39,20 @@ jobs:
         git clone --depth 1 https://github.com/roc-lang/roc.git && \
         cd roc && \
         cargo build --locked --profile=release-with-lto --bin roc && \
-        ./target/release/roc version"
+        ./target/release-with-lto/roc version"
 
     # this makes the roc binary a lot smaller
-    - name: strip debug info
-      run: strip ./target/release-with-lto/roc
+    # it currently errors on GitHub Actions with:
+    #     strip: ./roc/target/release-with-lto/roc: could not create temporary file to hold stripped copy: cause of error unknown
+    # - name: strip debug info
+    #   run: strip ./roc/target/release-with-lto/roc
     - name: package release
-      run: ./ci/package_release.sh ${{ env.RELEASE_FOLDER_NAME }}
-    - name: delete everything except the tar
-      run: ls | grep -v "roc_nightly.*tar\.gz" | xargs rm -rf
-    - name: extract tar for a quick test
-      run: ls | grep tar | xargs tar -xf
-    - name: test with rust platform
-      run: cd ${{ env.RELEASE_FOLDER_NAME }} && ./roc examples/platform-switching/rocLovesRust.roc
+      run: tar -czvf "${{ env.RELEASE_FOLDER_NAME }}.tar.gz" ./roc/target/release-with-lto/roc
     - name: print short commit SHA
       run: git rev-parse --short "$GITHUB_SHA"
     - name: print date
       run: date
-    - name: Upload artifact Actually uploading to github releases has to be done manually
+    - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
          name: ${{ env.RELEASE_FOLDER_NAME }}.tar.gz
