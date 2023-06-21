@@ -14,9 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Build Docker image
-      run: docker build -t docker-build-env ./.github/workflows/
-
     - name: get commit SHA
       run:  echo "SHA=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
 
@@ -30,7 +27,10 @@ jobs:
       run: echo "RELEASE_FOLDER_NAME=roc_npm_nightly-linux_x64-$DATE-$SHA" >> $GITHUB_ENV
 
     - name: write version to file
-      run: ./ci/write_version.sh
+      run: printf 'roc-npm nightly pre-release, built from commit ' > version.txt && git log --pretty=format:'%h' -n 1 >> version.txt && printf ' on ' >> version.txt && date -u >> version.txt
+
+    - name: Build Docker image
+      run: docker build -t docker-build-env ./.github/workflows/
 
     - name: Run build in Docker container
       run: |
