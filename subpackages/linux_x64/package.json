@@ -1,6 +1,6 @@
 {
   "name": "@roc-installer-assets/linux_x64",
-  "version": "0.0.0-2023-05-31-nightly",
+  "version": "0.0.0-2023-06-21-nightly",
   "description": "The Linux X86 64-bit binary for Roc.",
   "repository": "https://github.com/vendrinc/roc-npm",
   "author": "Richard Feldman",
