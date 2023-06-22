@@ -45,7 +45,7 @@ jobs:
         if [ ! -d "llvm" ]; then
           mkdir llvm
           curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/clang+llvm-13.0.0-x86_64-apple-darwin.tar.xz | tar -xJ -C llvm --strip-components=1
-          find llvm/bin -maxdepth 1 -type f | grep -vE "/(lld|llc|clang)$" | xargs rm -f # remove all the llvm binaries we don't use, so cache downloads faster in the future
+          find llvm/bin -maxdepth 1 -type f | grep -vE "/(llvm-sys|lld|llc|clang)$" | xargs rm -f # remove all the llvm binaries we don't use, so cache downloads faster in the future
         fi
         echo "PATH=${PWD}/llvm/bin:${PATH}" >> $GITHUB_ENV
         echo "LLVM_SYS_130_PREFIX=${PWD}/llvm" >> $GITHUB_ENV
