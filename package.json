@@ -1,6 +1,6 @@
 {
   "name": "roc-lang",
-  "version": "0.0.0-2023-06-22-nightly-buster",
+  "version": "0.0.0-2023-06-21-nightly-buster",
   "description": "Download the Roc CLI binary to node_modules/.bin/roc",
   "license": "UPL-1.0",
   "repository": "https://github.com/vendrinc/roc-npm",
