@@ -62,21 +62,24 @@ jobs:
         fi
         echo "PATH=${PWD}/zig:${PATH}" >> $GITHUB_ENV
 
-    - name: install Rust
-      run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        rustup toolchain install 1.66.1
+    - name: install Rust toolchain
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: 1.66.1
+        default: true
+        override: true
 
     - name: Rust environment setup
       run: |
-        echo 'PATH="/Users/runner/.cargo/bin:${PATH}"' >> $GITHUB_ENV
-        echo 'RUSTFLAGS="-C link-arg=-fuse-ld=lld -C target-cpu=native"' >> $GITHUB_ENV
+        echo 'RUSTFLAGS="-C link-arg=-fuse-ld=lld -C target-cpu=native"' >> $GITHUB_ENV # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
         echo 'CARGO_INCREMENTAL=0' >> $GITHUB_ENV
 
     - name: build release
-      run: cd roc && \
-        cargo build --profile=release-with-lto --locked --features "editor" --bin roc && \
-        ./target/release-with-lto/roc version # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
+      run: cargo build --profile=release-with-lto --locked --features "editor" --bin roc
+      working-directory: roc
+
+    - name: check `roc --version`
+      run: cd ./roc/target/release-with-lto/roc --version
 
     # this makes the roc binary a lot smaller
     # it currently errors on GitHub Actions with:
