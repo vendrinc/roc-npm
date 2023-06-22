@@ -1,0 +1,97 @@
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 9 * * *'
+
+name: Build macOS x64 Roc CLI
+
+jobs:
+  build-roc-cli:
+    name: Build the `roc` CLI
+    runs-on: macos-latest
+    timeout-minutes: 360
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: clone roc
+      run: git clone --depth 1 https://github.com/roc-lang/roc.git
+
+    - name: get commit SHA
+      run:  cd roc && echo "SHA=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+
+    - name: get date
+      run: echo "DATE=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+
+    - name: build filename
+      env:
+          DATE: ${{ env.DATE }}
+          SHA: ${{ env.SHA }}
+      run: echo "RELEASE_FOLDER_NAME=roc_nightly-macos_x86_64-$DATE-$SHA" >> $GITHUB_ENV
+
+    - name: write version to file
+      run: cd roc && printf 'roc-npm nightly pre-release, built from commit ' > version.txt && git log --pretty=format:'%h' -n 1 >> version.txt && printf ' on ' >> version.txt && date -u >> version.txt
+
+    - name: cache LLVM
+      uses: actions/cache@v2
+      with:
+        path: llvm/bin
+        key: llvm-13.0.0_macos-x64
+
+    - name: install LLVM
+      run: |
+        if [ ! -d "llvm" ]; then
+          mkdir llvm
+          curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/clang+llvm-13.0.0-x86_64-apple-darwin.tar.xz | tar -xJ -C llvm --strip-components=1
+          find llvm/bin -maxdepth 1 -type f | grep -vE "/(lld|llc|clang)$" | xargs rm -f # remove all the llvm binaries we don't use, so cache downloads faster in the future
+        fi
+        echo "PATH=${PWD}/llvm/bin:${PATH}" >> $GITHUB_ENV
+        echo "LLVM_SYS_130_PREFIX=${PWD}/llvm" >> $GITHUB_ENV
+
+    - name: cache Zig
+      uses: actions/cache@v2
+      with:
+        path: zig
+        key: zig-0.9.1_macos-x64
+
+    - name: install Zig
+      run: |
+        if [ ! -d "zig" ]; then
+          mkdir zig
+          curl -L https://ziglang.org/download/0.9.1/zig-macos-x86_64-0.9.1.tar.xz | tar -xJ -C zig --strip-components=1
+        fi
+        echo "PATH=${PWD}/zig:${PATH}" >> $GITHUB_ENV
+
+    - name: install Rust
+      run: |
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        rustup toolchain install 1.66.1
+
+    - name: Rust environment setup
+      run: |
+        echo 'PATH="/Users/runner/.cargo/bin:${PATH}"' >> $GITHUB_ENV
+        echo 'RUSTFLAGS="-C link-arg=-fuse-ld=lld -C target-cpu=native"' >> $GITHUB_ENV
+        echo 'CARGO_INCREMENTAL=0' >> $GITHUB_ENV
+
+    - name: build release
+      run: cd roc && \
+        cargo build --profile=release-with-lto --locked --features "editor" --bin roc && \
+        ./target/release-with-lto/roc version # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
+
+    # this makes the roc binary a lot smaller
+    # it currently errors on GitHub Actions with:
+    #     strip: ./roc/target/release-with-lto/roc: could not create temporary file to hold stripped copy: cause of error unknown
+    # - name: strip debug info
+    #   run: strip ./roc/target/release-with-lto/roc
+    - name: package release
+      run: tar -czvf "${{ env.RELEASE_FOLDER_NAME }}.tar.gz" ./roc/target/release-with-lto/roc
+    - name: print short commit SHA
+      run: git rev-parse --short "$GITHUB_SHA"
+    - name: print date
+      run: date
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+         name: ${{ env.RELEASE_FOLDER_NAME }}.tar.gz
+         path: ${{ env.RELEASE_FOLDER_NAME }}.tar.gz
+         retention-days: 4
