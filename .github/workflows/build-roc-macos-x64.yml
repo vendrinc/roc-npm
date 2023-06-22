@@ -71,10 +71,11 @@ jobs:
         default: true
         override: true
 
-    - name: Rust environment setup
-      run: |
-        echo "RUSTFLAGS='-C link-arg=-fuse-ld=lld -C target-cpu=native'" >> $GITHUB_ENV # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
-        echo "CARGO_INCREMENTAL=0" >> $GITHUB_ENV
+    # These break things for some reason...some syntax problem with the env vars
+    #- name: Rust environment setup
+    #  run: |
+    #    echo "RUSTFLAGS='-C link-arg=-fuse-ld=lld -C target-cpu=native'" >> $GITHUB_ENV # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
+    #    echo "CARGO_INCREMENTAL=0' >> $GITHUB_ENV
 
     - name: build release
       working-directory: roc
