@@ -38,7 +38,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: llvm/bin
-        key: llvm-13.0.0_macos-x64
+        key: llvm-13.0.0/macos-x64
 
     - name: install LLVM
       run: |
@@ -54,7 +54,7 @@ jobs:
       uses: actions/cache@v2
       with:
         path: zig
-        key: zig-0.9.1_macos-x64
+        key: zig-0.9.1/macos-x64
 
     - name: install Zig
       run: |
