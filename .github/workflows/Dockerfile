@@ -2,7 +2,7 @@
 FROM debian:buster
 
 # Install necessary dependencies
-RUN apt-get update && apt-get -y dist-upgrade
+RUN apt-get update
 RUN apt-get install -y wget git curl
 RUN apt-get install -y libxcb-shape0-dev libxcb-xfixes0-dev # for editor clipboard
 RUN apt-get install -y libasound2-dev # for editor sounds
