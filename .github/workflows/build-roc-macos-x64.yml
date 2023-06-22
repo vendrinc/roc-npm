@@ -18,7 +18,8 @@ jobs:
       run: git clone --depth 1 https://github.com/roc-lang/roc.git
 
     - name: get commit SHA
-      run:  cd roc && echo "SHA=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
+      working-directory: roc
+      run: echo "SHA=$(git rev-parse --short "$GITHUB_SHA")" >> $GITHUB_ENV
 
     - name: get date
       run: echo "DATE=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
@@ -30,7 +31,8 @@ jobs:
       run: echo "RELEASE_FOLDER_NAME=roc_nightly-macos_x86_64-$DATE-$SHA" >> $GITHUB_ENV
 
     - name: write version to file
-      run: cd roc && printf 'roc-npm nightly pre-release, built from commit ' > version.txt && git log --pretty=format:'%h' -n 1 >> version.txt && printf ' on ' >> version.txt && date -u >> version.txt
+      working-directory: roc
+      run: printf 'roc-npm nightly pre-release, built from commit ' > version.txt && git log --pretty=format:'%h' -n 1 >> version.txt && printf ' on ' >> version.txt && date -u >> version.txt
 
     - name: cache LLVM
       uses: actions/cache@v2
@@ -71,15 +73,15 @@ jobs:
 
     - name: Rust environment setup
       run: |
-        echo 'RUSTFLAGS="-C link-arg=-fuse-ld=lld -C target-cpu=native"' >> $GITHUB_ENV # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
-        echo 'CARGO_INCREMENTAL=0' >> $GITHUB_ENV
+        echo "RUSTFLAGS='-C link-arg=-fuse-ld=lld -C target-cpu=native'" >> $GITHUB_ENV # target-cpu=x86-64 -> For maximal compatibility for all CPUs. Note that this setting will likely make the compiler slower.
+        echo "CARGO_INCREMENTAL=0" >> $GITHUB_ENV
 
     - name: build release
-      run: cargo build --profile=release-with-lto --locked --features "editor" --bin roc
       working-directory: roc
+      run: cargo build --profile=release-with-lto --locked --features "editor" --bin roc
 
     - name: check `roc --version`
-      run: cd ./roc/target/release-with-lto/roc --version
+      run: ./roc/target/release-with-lto/roc --version
 
     # this makes the roc binary a lot smaller
     # it currently errors on GitHub Actions with:
