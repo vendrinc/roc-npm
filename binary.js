@@ -13,12 +13,7 @@ var path = require('path');
 module.exports = function()
 {
 	// figure out package of binary
-	var version =
-        package.version.endsWith('-nightly')
-        // turn '0.0.0-2023-04-17-nightly' into '2023-04-17-nightly'
-        ? package.version.replace(/^\d+\.\d+\.\d+-(.*)$/, '$2')
-        // turn '1.2.3-alpha' into '1.2.3'
-        : package.version.replace(/^(\d+\.\d+\.\d+).*$/, '$1');
+	var version = package.version;
 	var subPackageName = '@roc-installer-assets/' + process.platform + '_' + process.arch;
 
 	verifyPlatform(version, subPackageName);
@@ -103,7 +98,6 @@ function exitFailure(version, message)
 	);
 	process.exit(1);
 }
-
 
 function missingSubPackageHelp(subPackageName)
 {
