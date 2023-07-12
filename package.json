@@ -26,8 +26,8 @@
   ],
   "bin": { "roc": "bin/roc" },
   "optionalDependencies": {
-    "@roc-installer-assets/darwin_arm64": "0.0.1-2023-06-21-nightly",
-    "@roc-installer-assets/darwin_x64": "0.0.1-2023-06-21-nightly",
-    "@roc-installer-assets/linux_x64": "0.0.1-2023-06-21-nightly-buster"
+    "@roc-installer-assets/darwin_arm64": "{{version}}",
+    "@roc-installer-assets/darwin_x64": "{{version}}",
+    "@roc-installer-assets/linux_x64": "{{version}}"
   }
 }
