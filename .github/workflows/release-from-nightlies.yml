@@ -74,4 +74,5 @@ jobs:
       - name: Publish roc-npm
         run: |
           sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
+          sed -i "s/\(@roc-installer-assets\/[^\"]*\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           npm publish --access=public
