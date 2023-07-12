@@ -29,6 +29,8 @@ jobs:
           rm *.tar.gz
           mv roc_nightly*/roc .
           sed -i "s/{{version}}/${VERSION}/g" package.json
+          wc -c roc
+          cat package.json
           npm publish
 
       # - name: Publish linux_arm64 subpackage
@@ -39,6 +41,8 @@ jobs:
       #     rm *.tar.gz
       #     mv roc_nightly*/roc .
       #     sed -i "s/{{version}}/${VERSION}/g" package.json
+      #     wc -c roc
+      #     cat package.json
       #     npm publish
 
       - name: Publish darwin_arm64 subpackage
@@ -49,6 +53,8 @@ jobs:
           rm *.tar.gz
           mv roc_nightly*/roc .
           sed -i "s/{{version}}/${VERSION}/g" package.json
+          wc -c roc
+          cat package.json
           npm publish
 
       - name: Publish darwin_x64 subpackage
@@ -59,6 +65,8 @@ jobs:
           rm *.tar.gz
           mv roc_nightly*/roc .
           sed -i "s/{{version}}/${VERSION}/g" package.json
+          wc -c roc
+          cat package.json
           npm publish
 
       # Now that all the subpackages have been published, publish this one.
