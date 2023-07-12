@@ -30,7 +30,7 @@ jobs:
           sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
-          npm publish
+          npm publish --access=public
 
       # - name: Publish linux_arm64 subpackage
       #   run: |
@@ -42,7 +42,7 @@ jobs:
       #     sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
       #     wc -c roc
       #     cat package.json
-      #     npm publish
+      #     npm publish --access=public
 
       - name: Publish darwin_arm64 subpackage
         run: |
@@ -54,7 +54,7 @@ jobs:
           sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
-          npm publish
+          npm publish --access=public
 
       - name: Publish darwin_x64 subpackage
         run: |
@@ -66,13 +66,13 @@ jobs:
           sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
-          npm publish
+          npm publish --access=public
 
       # Now that all the subpackages have been published, publish this one.
       - name: Publish roc-npm
         run: |
           sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
-          npm publish
+          npm publish --access=public
 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
