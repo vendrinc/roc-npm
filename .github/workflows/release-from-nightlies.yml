@@ -1,0 +1,55 @@
+name: Publish from Roc nightlies
+on:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron:  '0 9 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to npm
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+
+      # download and unzip all the nightlies
+      - run: |
+          cd subpackages/linux_x64/
+          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-linux_x86_64-latest.tar.gz
+          tar xzf roc_nightly-linux_x86_64-latest.tar.gz
+
+      # - run: |
+      #     cd subpackages/linux_arm64/
+      #     wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-linux_arm64-latest.tar.gz
+      #     tar xzf roc_nightly-linux_arm64-latest.tar.gz
+
+      - run: |
+          cd subpackages/darwin_arm64/
+          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-macos_apple_silicon-latest.tar.gz
+          tar xzf roc_nightly-macos_apple_silicon-latest.tar.gz
+
+      - run: |
+          cd subpackages/darwin_x64/
+          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-macos_x86_64-latest.tar.gz
+          tar xzf roc_nightly-macos_x86_64-latest.tar.gz
+
+      # publish the subpackages and then this package,
+      # after updating each of their versions in package.json
+      - run: |
+          DATE_STR=$(date +%Y-%m-%d)
+          VERSION="0.0.1-${DATE_STR}-nightly"
+          for dir in subpackages/*/
+          do
+            cd "${dir}"
+            sed -i "s/{{version}}/${VERSION}/g" package.json
+            npm publish
+            cd -
+          done
+          sed -i "s/{{version}}/${VERSION}/g" package.json
+          npm publish
+
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

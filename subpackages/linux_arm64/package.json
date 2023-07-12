@@ -1,12 +1,12 @@
 {
   "name": "@roc-installer-assets/linux_x64",
   "version": "{{version}}",
-  "description": "The Linux X86 64-bit binary for Roc.",
+  "description": "The Linux ARM 64-bit binary for Roc.",
   "repository": "https://github.com/vendrinc/roc-npm",
   "author": "Richard Feldman",
   "license": "UPL-1.0",
   "preferUnplugged": true,
   "files": ["roc"],
   "os": ["linux"],
-  "cpu": ["x64"]
+  "cpu": ["arm64"]
 }
