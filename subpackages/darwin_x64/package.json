@@ -1,6 +1,6 @@
 {
   "name": "@roc-installer-assets/darwin_x64",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The macOS 64-bit X86 binary for Roc.",
   "repository": "https://github.com/vendrinc/roc-npm",
   "author": "Richard Feldman",

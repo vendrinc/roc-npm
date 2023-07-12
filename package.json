@@ -1,6 +1,6 @@
 {
   "name": "roc-lang",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Download the Roc CLI binary to node_modules/.bin/roc",
   "license": "UPL-1.0",
   "repository": "https://github.com/vendrinc/roc-npm",
@@ -26,8 +26,8 @@
   ],
   "bin": { "roc": "bin/roc" },
   "optionalDependencies": {
-    "@roc-installer-assets/darwin_arm64": "0.0.1",
-    "@roc-installer-assets/darwin_x64": "0.0.1",
-    "@roc-installer-assets/linux_x64": "0.0.1"
+    "@roc-installer-assets/darwin_arm64": "0.0.2",
+    "@roc-installer-assets/darwin_x64": "0.0.2",
+    "@roc-installer-assets/linux_x64": "0.0.2"
   }
 }
