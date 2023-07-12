@@ -17,8 +17,7 @@ jobs:
 
       - name: Set env variables
         run: |
-          echo "DATE_STR=$(date +%Y-%m-%d)" >> $GITHUB_ENV
-          echo 'VERSION="0.0.1-${{ env.DATE_STR }}-nightly"' >> $GITHUB_ENV
+          echo "NIGHTLY_VERSION=-$(date +%Y-%m-%d)-nightly" >> $GITHUB_ENV
 
       # download and unzip all the nightlies
       - name: Publish linux_x64 subpackage
@@ -28,7 +27,7 @@ jobs:
           tar xzf *.tar.gz
           rm *.tar.gz
           mv roc_nightly*/roc .
-          sed -i "s/{{version}}/${VERSION}/g" package.json
+          sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
           npm publish
@@ -40,7 +39,7 @@ jobs:
       #     tar xzf *.tar.gz
       #     rm *.tar.gz
       #     mv roc_nightly*/roc .
-      #     sed -i "s/{{version}}/${VERSION}/g" package.json
+      #     sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
       #     wc -c roc
       #     cat package.json
       #     npm publish
@@ -52,7 +51,7 @@ jobs:
           tar xzf *.tar.gz
           rm *.tar.gz
           mv roc_nightly*/roc .
-          sed -i "s/{{version}}/${VERSION}/g" package.json
+          sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
           npm publish
@@ -64,7 +63,7 @@ jobs:
           tar xzf *.tar.gz
           rm *.tar.gz
           mv roc_nightly*/roc .
-          sed -i "s/{{version}}/${VERSION}/g" package.json
+          sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           wc -c roc
           cat package.json
           npm publish
@@ -72,10 +71,8 @@ jobs:
       # Now that all the subpackages have been published, publish this one.
       - name: Publish roc-npm
         run: |
-          sed -i "s/{{version}}/${VERSION}/g" package.json
+          sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
           npm publish
 
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          DATE_STR: $(date +%Y-%m-%d)
-          VERSION: "0.0.1-${DATE_STR}-nightly"
