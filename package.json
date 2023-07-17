@@ -28,6 +28,7 @@
   "optionalDependencies": {
     "@roc-installer-assets/darwin_arm64": "0.0.2",
     "@roc-installer-assets/darwin_x64": "0.0.2",
-    "@roc-installer-assets/linux_x64": "0.0.2"
+    "@roc-installer-assets/linux_x64": "0.0.2",
+    "@roc-installer-assets/linux_arm64": "0.0.2"
   }
 }
