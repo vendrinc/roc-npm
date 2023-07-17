@@ -25,7 +25,7 @@ jobs:
       - name: Publish linux_x64 subpackage
         run: |
           cd subpackages/linux_x64/
-          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-linux_x86_64-latest.tar.gz
+          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-old_linux_x86_64-latest.tar.gz
           tar xzf *.tar.gz
           rm *.tar.gz
           mv roc_nightly*/roc .
