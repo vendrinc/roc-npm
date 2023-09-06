@@ -6,7 +6,10 @@
   "repository": "https://github.com/vendrinc/roc-npm",
   "author": "Richard Feldman",
   "type": "commonjs",
-  "exports": {},
+  "main": "install.js",
+  "exports": {
+    ".": "./install.js"
+  },
   "scripts": {
     "install": "node install.js"
   },
