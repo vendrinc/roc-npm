@@ -70,6 +70,18 @@ jobs:
           cat package.json
           npm publish --access=public
 
+      - name: Publish win32_x64 subpackage
+        run: |
+          cd subpackages/win32_x64/
+          wget https://github.com/roc-lang/roc/releases/download/nightly/roc_nightly-windows_x86_64-latest.tar.gz
+          tar xzf *.tar.gz
+          rm *.tar.gz
+          mv roc_nightly*/roc .
+          sed -i "s/\(\"version\": \"[^\"]*\)\"/\1$NIGHTLY_VERSION\"/" package.json
+          wc -c roc
+          cat package.json
+          npm publish --access=public
+
       # Now that all the subpackages have been published, publish this one.
       - name: Publish roc-npm
         run: |
