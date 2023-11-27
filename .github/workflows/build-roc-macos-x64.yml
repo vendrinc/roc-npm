@@ -37,9 +37,9 @@ jobs:
     - name: install LLVM
       run: |
         mkdir llvm
-        curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-13.0.0/clang+llvm-13.0.0-x86_64-apple-darwin.tar.xz | tar -xJ -C llvm --strip-components=1
+        curl -L https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.5/clang+llvm-16.0.5-arm64-apple-darwin22.0.tar.xz | tar -xJ -C llvm --strip-components=1
         echo "PATH=${PWD}/llvm/bin:${PATH}" >> $GITHUB_ENV
-        echo "LLVM_SYS_130_PREFIX=${PWD}/llvm" >> $GITHUB_ENV
+        echo "LLVM_SYS_160_PREFIX=${PWD}/llvm" >> $GITHUB_ENV
 
     - name: verify LLVM installation
       run: llc --version

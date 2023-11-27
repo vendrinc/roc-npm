@@ -29,10 +29,10 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y lsb-release software-properties-common gnupg
 RUN wget https://apt.llvm.org/llvm.sh
 RUN chmod +x llvm.sh
-RUN ./llvm.sh 13
-RUN ln -s /usr/bin/clang-13 /usr/bin/clang
+RUN ./llvm.sh 16
+RUN ln -s /usr/bin/clang-16 /usr/bin/clang
 # use lld as linker
-RUN ln -s /usr/bin/lld-13 /usr/bin/ld.lld
+RUN ln -s /usr/bin/lld-16 /usr/bin/ld.lld
 ENV RUSTFLAGS="-C link-arg=-fuse-ld=lld -C target-cpu=native"
 # wasm repl & tests
 RUN rustup target add wasm32-unknown-unknown wasm32-wasi
@@ -48,7 +48,7 @@ ENV CARGO_INCREMENTAL=0
 # COPY --dir crates examples Cargo.toml Cargo.lock version.txt www ./
 
 RUN rustup toolchain install 1.66.1
-ENV LLVM_SYS_130_PREFIX=/usr/lib/llvm-13
+ENV LLVM_SYS_160_PREFIX=/usr/lib/llvm-16
 
 # zig
 RUN mkdir /zig && wget -c https://ziglang.org/download/0.9.1/zig-linux-x86_64-0.9.1.tar.xz --no-check-certificate -O - | tar -xJ -C /zig
