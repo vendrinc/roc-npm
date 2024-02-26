@@ -1,0 +1,12 @@
+{
+  "name": "@roc-installer-assets/win32_x64",
+  "version": "0.0.3",
+  "description": "The Windows 64-bit X86 binary for Roc.",
+  "repository": "https://github.com/vendrinc/roc-npm",
+  "author": "Richard Feldman",
+  "license": "UPL-1.0",
+  "preferUnplugged": true,
+  "files": ["roc"],
+  "os": ["win32"],
+  "cpu": ["x64"]
+}
